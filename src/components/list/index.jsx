@@ -10,7 +10,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "../ui/textarea";
-import { deleteApp, update_app } from "@/firebase";
+import { update_app, delete_app } from "@/firebase";
 import DeviceType from "../shared/device-type";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { extractDynamicPart } from "@/lib/utils";
@@ -251,7 +251,7 @@ export default function List({ item, action = false }) {
                                     This action cannot be undone. This will permanently delete your app and remove your data from our servers.
                                 </DialogDescription>
                                 <DialogFooter>
-                                    <Button onClick={() => { deleteApp(item.id); setIsOpen(false); }} type="button" variant="outline" className="text-slate-900 dark:text-white">Yes</Button>
+                                    <Button onClick={() => { delete_app(item.id); setIsOpen(false); }} type="button" variant="outline" className="text-slate-900 dark:text-white">Yes</Button>
                                     <DialogClose asChild>
                                         <Button type="button" onClick={() => setIsOpen(false)}>No</Button>
 

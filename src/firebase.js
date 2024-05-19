@@ -160,7 +160,7 @@ export const create_app = async (data, url) => {
 
 
 
-export const deleteApp = async (id) => {
+export const delete_app = async (id) => {
     const appsDoc = doc(db, "apps", id);
     await deleteDoc(appsDoc).then(res => {
         get_apps()
