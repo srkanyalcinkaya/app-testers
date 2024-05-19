@@ -38,6 +38,7 @@ onAuthStateChanged(auth, async user => {
             fullName: user.displayName,
             email: user.email,
             avatar: user.photoURL,
+            access_token: auth.currentUser.accessToken,
             ...dbUser.data()
         }
         userHandle(data)
@@ -95,6 +96,7 @@ export const update_profile = async (profileData) => {
         console.log(error)
     }
 }
+
 export const update_app = async (data, deleted_image = false, selectedId) => {
     try {
         const appsDocRef = doc(db, "apps", selectedId);
@@ -158,7 +160,22 @@ export const create_app = async (data, url) => {
     }
 }
 
+export const join_app = async (appId,) => {
+    try {
+        //1-add 1 count at app
+        // const appDocRef = doc(db, "apps", appId);
 
+        // const updatedData = {
+
+        //     tester_count: ,
+        // };
+        // await updateDoc(userDocRef, updatedData);
+        //2-Added tester_app in app
+    } catch (error) {
+        toast.error('Error join!');
+        console.log(error)
+    }
+}
 
 export const delete_app = async (id) => {
     const appsDoc = doc(db, "apps", id);
@@ -177,8 +194,10 @@ export const logout = async () => {
 
 export const delete_user = async () => {
     try {
+        delete_app()
         deleteUser(auth.uid)
     } catch (error) {
         console.log(error)
     }
 }
+

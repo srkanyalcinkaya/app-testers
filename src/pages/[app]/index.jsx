@@ -1,15 +1,25 @@
-import React from "react"
+import React, { useState } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { User } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import DeviceType from "@/components/shared/device-type"
+import DeviceType from "@/components/shared/device-type";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 export default function App() {
     let { id } = useParams();
-    const { app } = useSelector(state => state.apps)
-    let filtered = app?.filter(state => state.id === id)
+    const { app } = useSelector(state => state.apps);
+    const [isOpen, setIsOpen] = useState(false)
+    let filtered = app?.filter(state => state.id === id);
     let item = filtered[0];
     const createdDate = new Date(item?.created?.seconds * 1000); // Convert seconds to milliseconds
     const formattedDate = createdDate.toLocaleDateString('en-US', {
@@ -17,6 +27,8 @@ export default function App() {
         month: 'long',
         day: 'numeric'
     });
+
+
     return (
         <div className="md:mt-20 mt- flex flex-col md:flex-row justify-between  w-full ">
             <div className="flex-col flex gap-6">
@@ -66,7 +78,7 @@ export default function App() {
                             {item?.description}
                         </p>
                         <Separator className="my-8 " />
-                        <DeviceType type={item?.device_type} size={24}/>
+                        <DeviceType type={item?.device_type} size={24} />
                         <Separator className="my-8 " />
                         <div className="flex flex-col items-center md:items-start">
                             <span className="text-base font-semibold">
@@ -78,7 +90,7 @@ export default function App() {
                         </div>
                     </div>
                     <Button className="w-full mt-8 md:hidden block"
-                        onClick={() => console.log("Join")}
+                        onClick={() => setIsOpen(true)}
                     >Join</Button>
 
                 </div>
@@ -93,8 +105,22 @@ export default function App() {
                 <span className="text-xs">
                     {formattedDate}
                 </span>
-                <Button className="w-3/5 mt-6">Join</Button>
+                <Button onClick={() => setIsOpen(true)} className="w-3/5 mt-6">Join</Button>
             </div>
+
+            <Dialog open={isOpen} onOpenChange={setIsOpen} >
+                <DialogContent>
+                    <DialogHeader className="text-white">
+                        <DialogTitle>Join Testers</DialogTitle>
+                        <DialogDescription>
+                            as a tester, you will be able to download the app via the account you provide. Make sure to open it at least once, so that the developer can see that you have tested it.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button type="submit">Join</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }

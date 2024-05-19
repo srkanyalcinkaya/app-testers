@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Pencil, Trash2, User } from "lucide-react";
-import { FaAndroid } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Link } from "react-router-dom";
@@ -254,7 +253,6 @@ export default function List({ item, action = false }) {
                                     <Button onClick={() => { delete_app(item.id); setIsOpen(false); }} type="button" variant="outline" className="text-slate-900 dark:text-white">Yes</Button>
                                     <DialogClose asChild>
                                         <Button type="button" onClick={() => setIsOpen(false)}>No</Button>
-
                                     </DialogClose>
                                 </DialogFooter>
                             </DialogHeader>
